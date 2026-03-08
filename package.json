@@ -28,7 +28,6 @@
       "package.json",
       "frontend/dist/**/*"
     ],
-    "npmRebuild": false,
     "asar": true
   },
   "keywords": [],
