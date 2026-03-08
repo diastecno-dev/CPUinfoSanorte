@@ -80,7 +80,7 @@ serverApp.get('/api/system-info', async (req, res) => {
 serverApp.use(express.static(path.join(__dirname, 'frontend/dist')));
 
 // Fallback for React Router (Single Page Application)
-serverApp.get('/:path*', (req, res) => {
+serverApp.use((req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
 });
 
@@ -92,7 +92,7 @@ function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1200,
         height: 800,
-        icon: path.join(__dirname, 'frontend/public/logo.svg'),
+        icon: path.join(__dirname, 'frontend/dist/logo.svg'),
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true
