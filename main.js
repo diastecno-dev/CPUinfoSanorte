@@ -80,7 +80,7 @@ serverApp.get('/api/system-info', async (req, res) => {
 serverApp.use(express.static(path.join(__dirname, 'frontend/dist')));
 
 // Fallback for React Router (Single Page Application)
-serverApp.get('/(.*)', (req, res) => {
+serverApp.get('/:path*', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
 });
 
