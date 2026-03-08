@@ -26,10 +26,9 @@
     "files": [
       "main.js",
       "package.json",
-      "splash.html",
       "frontend/dist/**/*"
     ],
-    "compression": "maximum",
+    "npmRebuild": false,
     "asar": true
   },
   "keywords": [],

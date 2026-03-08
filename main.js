@@ -86,31 +86,12 @@ serverApp.use((req, res) => {
 
 // Start Express Server
 let server;
-let splashWindow;
-
-function createSplashWindow() {
-    splashWindow = new BrowserWindow({
-        width: 500,
-        height: 400,
-        transparent: true,
-        frame: false,
-        alwaysOnTop: true,
-        webPreferences: {
-            nodeIntegration: false,
-            contextIsolation: true
-        }
-    });
-
-    splashWindow.loadFile(path.join(__dirname, 'splash.html'));
-    splashWindow.on('closed', () => (splashWindow = null));
-}
 
 // Setup Electron Window
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 1200,
         height: 800,
-        show: false, // Don't show until ready
         icon: path.join(__dirname, 'frontend/dist/logo.svg'),
         webPreferences: {
             nodeIntegration: false,
@@ -126,15 +107,6 @@ function createWindow() {
         mainWindow.loadURL(`http://127.0.0.1:${PORT}`);
     });
 
-    // When the main window is ready to be shown
-    mainWindow.once('ready-to-show', () => {
-        if (splashWindow) {
-            splashWindow.close();
-        }
-        mainWindow.show();
-        mainWindow.focus();
-    });
-
     // Fallback if URL fails
     mainWindow.webContents.on('did-fail-load', () => {
         setTimeout(() => mainWindow.loadURL(`http://127.0.0.1:${PORT}`), 1000);
@@ -142,7 +114,6 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-    createSplashWindow();
     createWindow();
 
     app.on('activate', function () {
