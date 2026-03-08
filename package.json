@@ -15,19 +15,25 @@
     },
     "win": {
       "target": [
-        "portable"
+        "nsis"
       ],
       "requestedExecutionLevel": "requireAdministrator"
     },
-    "portable": {
-      "requestExecutionLevel": "admin"
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "CPU Info Sanorte"
     },
     "npmRebuild": false,
     "files": [
       "main.js",
       "package.json",
+      "splash.html",
       "frontend/dist/**/*"
     ],
+    "compression": "maximum",
     "asar": true
   },
   "keywords": [],
