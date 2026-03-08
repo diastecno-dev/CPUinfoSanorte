@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --sn-green: #59a639;
+  /* Sanorte vibrant green */
+  --sn-green-dark: #3a7522;
+  --sn-blue: #2a6acb;
+  /* Sanorte highlight blue */
+  --sn-blue-dark: #1b478a;
+  --sn-dark: #1f2937;
+  --sn-gray-light: #f3f4f6;
+  --sn-white: #ffffff;
+  --font-main: 'Outfit', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--sn-gray-light);
+  color: var(--sn-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 25vh;
+  /* Reduced height to fit everything */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--sn-white);
+  text-align: center;
+  padding: 1rem 2rem;
+  overflow: hidden;
+  /* Multi-background directly on element for html-to-image compatibility */
+  background: linear-gradient(135deg, rgba(42, 106, 203, 0.8) 0%, rgba(89, 166, 57, 0.85) 100%), url('/bg-hero.png') center/cover no-repeat;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  font-weight: 300;
+  max-width: 600px;
+  opacity: 0.9;
+}
+
+/* Main Layout Setup */
+.container {
+  max-width: 1400px;
+  /* Wider container */
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+}
+
+/* Sanorte "NOSSA HISTÓRIA" Title Style */
+.section-title-wrapper {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: baseline;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--sn-green);
+  display: flex;
+  align-items: center;
+}
+
+/* Grid for Cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* Modo exclusivo de Exportação (Foto/Print via botão) */
+.cards-grid.export-mode {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cards-grid>.card {
+  min-width: 0;
+  /* Prevents overflow issues */
+}
+
+.cards-grid>.card.id-card-override {
+  grid-column: 1 / -1;
+  /* ID card spreading entire width */
+}
+
+/* Responsivo para celular */
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.export-date {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin-top: 0.3rem;
+  display: none;
+}
+
+.export-mode-active .export-date {
+  display: block;
+}
+
+/* Ocultar barra superior (Logo e Botão) durante a Injeção de Imagem (Foto Limpa no Centro) */
+.export-mode-active .top-nav {
+  display: none !important;
+}
+
+/* Remover bordas sem informação e espremer o painel somente na captura */
+.export-mode-active {
+  min-height: auto !important;
+  /* Retira o esticamento de 100vh pro rodapé */
+  width: 1000px !important;
+  /* Trava a largura inteira do documento pra foto não escapar para os lados */
+  max-width: 1000px !important;
+  margin: 0 !important;
+  /* Fixa à esquerda p/ evitar o BUG de Deslocamento do html-to-image (onde margem cortava/desalinhava o render final) */
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.export-mode-active .container {
+  padding: 1.5rem 2.5rem 2.5rem 2.5rem;
+  /* Corta o excesso de bordas brancas laterais e inferiores */
+  max-width: 100%;
+  margin: 0;
+}
+
+/* Glassmorphism Card Style */
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--sn-gray-light);
+  padding-bottom: 0.5rem;
+}
+
+.card-icon {
+  background: var(--sn-green);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 8px rgba(89, 166, 57, 0.3);
+}
+
+.card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--sn-dark);
+}
+
+/* Data Rows inside Cards */
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+  padding-bottom: 0.15rem;
+}
+
+.data-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.data-label {
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.data-value {
+  font-weight: 700;
+  color: var(--sn-dark);
+  text-align: right;
+  max-width: 60%;
+}
+
+.data-value.no-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
+/* Loading State */
+.loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  color: var(--sn-blue);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--sn-gray-light);
+  border-top-color: var(--sn-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error State */
+.error-msg {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  border-left: 4px solid #b91c1c;
+  margin: 2rem auto;
+  max-width: 800px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Logo Placeholder Style */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  z-index: 10;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content h3 {
+  margin-bottom: 1rem;
+  color: var(--sn-dark);
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  outline: none;
+}
+
+.modal-content input:focus {
+  border-color: var(--sn-green);
+  box-shadow: 0 0 0 2px rgba(89, 166, 57, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #4b5563;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--sn-green);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Print Button Styling */
+.print-button {
+  background-color: var(--sn-blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 10px rgba(42, 106, 203, 0.3);
+}
+
+.print-button:hover {
+  background-color: var(--sn-blue-dark);
+}
+
+/* Printing Settings */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background-color: var(--sn-gray-light) !important;
+  }
+
+  .print-button {
+    display: none !important;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .hero::after {
+    /* Make gradient print properly */
+    background: linear-gradient(135deg, rgba(42, 106, 203, 0.8) 0%, rgba(89, 166, 57, 0.85) 100%) !important;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .card {
+    break-inside: avoid;
+    /* Prevents cards from splitting across two pages */
+    box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    /* Cleaner border for paper */
+  }
+}
